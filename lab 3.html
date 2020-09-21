@@ -1,0 +1,121 @@
+<HTML>
+<BODY>
+	<h1>Лабораторная работа №3</h1>
+	<p>Задание: выводить линию по двум точкам, которые задаются нажатием мыши, используя алгоритм Брезенхэма.</p>
+ 	<canvas id='lab03' width='500' height="500" style="border:1px solid"> </canvas>
+ 	<script>
+ 		var canvas = document.getElementById('lab03');
+ 		var ctx = canvas.getContext('2d');
+            	var x0 = 0;
+            	var y0 = 0;
+            	var x1 = 0;
+            	var y1 = 0;
+            
+		function Bresenham_line_x(x0, x1, y0, y1)
+		{
+			var deltax = Math.abs(x1 - x0)
+			var deltay = Math.abs(y1 - y0)
+			var error = 0
+			var deltaerr = deltay
+			var y = y0
+			var diry = y1 - y0
+			if (diry > 0) { diry = 1}
+			if (diry < 0) { diry = -1}
+			if (x1 < x0)
+			{
+				for (var x = x0; x > x1; x--)
+				{
+					ctx.fillRect(x, y, 1, 1);
+					error = error + deltaerr
+					if (2*error >= deltax)
+					{
+						y = y + diry
+						error = error - deltax
+					}
+				}
+			}
+			else
+			{
+				for (var x = x0; x < x1; x++)
+				{
+					ctx.fillRect(x, y, 1, 1);
+					error = error + deltaerr
+					if (2*error >= deltax)
+					{
+						y = y + diry
+						error = error - deltax
+					}
+				}
+			}
+		}
+		
+		function Bresenham_line_y(x0, x1, y0, y1)
+		{
+			var deltax = Math.abs(x1 - x0)
+			var deltay = Math.abs(y1 - y0)
+			var error = 0
+			var deltaerr = deltax
+			var x = x0
+			var dirx = x1 - x0
+			if (dirx > 0) { dirx = 1}
+			if (dirx < 0) { dirx = -1}
+			if (y1 < y0)
+			{
+				for (var y = y0; y > y1; y--)
+				{
+					ctx.fillRect(x, y, 1, 1);
+					error = error + deltaerr
+					if (2*error >= deltay)
+					{
+						x = x + dirx
+						error = error - deltay
+					}
+				}
+			}
+			else
+			{
+				for (var y = y0; y < y1; y++)
+				{
+					ctx.fillRect(x, y, 1, 1);
+					error = error + deltaerr
+					if (2*error >= deltay)
+					{
+						x = x + dirx
+						error = error - deltay
+					}
+				}
+			}
+		}
+		
+            	var flag = 0;
+		document.addEventListener("click", function(event)
+		{
+			if(event.which == 1)
+			{
+				if(flag == 0)
+				{
+				 	x0 = event.offsetX;
+					y0 = event.offsetY;
+					flag = 1;
+				} 
+				else if (flag == 1) 
+				{
+					x1 = event.offsetX;
+					y1 = event.offsetY;
+					 
+					 if(Math.abs(x1-x0) > Math.abs(y1-y0))
+					 {
+						Bresenham_line_x(x0, x1, y0, y1);
+					 }
+					 else
+					 {
+						Bresenham_line_y(x0, x1, y0, y1);
+					 }
+					 flag = 0;
+
+				}
+			}
+		});
+ 	</script>
+</BODY>
+</HTML>
