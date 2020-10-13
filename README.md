@@ -13,7 +13,7 @@ Repository for laboratory works on computer graphics
 - [Laboratory work 3](https://github.com/Sviatoslavchik/CG/blob/master/lab_03/lab%203.html) (Bresenham's line algorithm):
 
 <img src="https://github.com/Sviatoslavchik/CG/blob/master/images/lab%203.jpg" width="508" height="507" />
-- [Laboratory work 4](https://github.com/Sviatoslavchik/CG/blob/master/lab_04/lab%204.html) (Sobel`)
+- [Laboratory work 4](https://github.com/Sviatoslavchik/CG/blob/master/lab_04/lab%204.html) (Sobel`):
 
 <img src="https://github.com/Sviatoslavchik/CG/blob/master/images/lab04.PNG" width="1133" height="700" />
 
