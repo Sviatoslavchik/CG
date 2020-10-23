@@ -19,3 +19,8 @@ Repository for laboratory works on computer graphics
 <img src="https://github.com/Sviatoslavchik/CG/blob/master/images/lab04.PNG" width="1133" height="700" />
 
 
+- [Laboratory work 5](https://github.com/Sviatoslavchik/CG/blob/master/lab_05/lab%205.html):
+
+  (Реализовать алгоритм отсечение отрезка выпуклым многоугольником.)
+  
+  <img src="https://github.com/Sviatoslavchik/CG/blob/master/images/lab%205.png"/>
