@@ -1,9 +1,144 @@
 <HTML>
-	<BODY>
-		<h1>Лабораторная работа №6</h1>
-		<p>Задание: выводить линию по двум точкам, которые задаются нажатием мыши, используя алгоритм Брезенхэма.</p>
-	
-	</BODY>
-	
-	</HTML>
-	
+    <BODY>
+        <h1>Лабораторная работа №6</h1>
+        <p>Задание: реализовать алгоритм построения многоугольника и заполнение его цветом.</p>
+        <div class= "canvas">
+            <canvas id='lab06' height='500' width='700' style="border:1px solid">
+        </div>
+        <div class = "buttons"> 
+            <button type="button" id="secondButton" onclick="rectFunction()">Многоугольник</button> 
+            <button type="button" id="secondButton" onclick="drawFunction()">Заливка</button>  		
+        </div>
+        <div>
+            <p>Многоугольник - режим установки точек многоугольника</p>
+            <p>Заливка - заполнить многоугольник</p>	
+        </div>
+    <script>
+        var canvas = document.getElementById('lab06');
+        var ctx = canvas.getContext('2d');
+        ctx.strokeStyle = "dodgerblue";
+        var buffer=[];
+
+        function getMousePos(canvas) {
+            return {
+                x: event.clientX - 10,
+                y: event.clientY - 102
+            };
+        }
+        
+        function drawLine(pt1, pt2) {
+            ctx.beginPath()
+            ctx.lineWidth = 1;
+            ctx.moveTo(pt1[0], pt1[1]);
+            ctx.lineTo(pt2[0], pt2[1]);
+            ctx.stroke();
+        }
+
+        function fillFigure() {
+            console.log(buffer);
+            buffer = rastFigure();
+            console.log(buffer);
+            for(var i = 0; i < buffer.length - 2; i++) {
+                if(buffer[i][1] == buffer[i+2][1] && buffer[i][1] != buffer[i+3][1]) {
+                    drawLine(buffer[i],buffer[i+2]);
+                    i+=2;
+                }
+                else if(buffer[i][1] == buffer[i+1][1]) {
+                    drawLine(buffer[i],buffer[i+1]);
+                    i++;
+                }
+            }
+        }
+
+        function oneLine(pt1, pt2) {
+            if(pt1[1] == pt2[1]){return true;}	
+            return false;
+        }
+
+        function rastFigure() {
+            var poly = [];
+            for(var i = 0; i < buffer.length - 1; i++) {
+                if(!oneLine(buffer[i],buffer[i+1])){
+                    poly = poly.concat(restLine(buffer[i],buffer[i+1]));
+                }
+                else {poly.push(buffer[i]);}
+            }
+            if(!oneLine(buffer[buffer.length - 1], buffer[0])) {
+                poly = poly.concat(restLine(buffer[buffer.length - 1], buffer[0]));
+            }
+            return poly.sort(sortFunc);
+        }
+
+        function restLine(pt1, pt2) {
+            var y = pt1[1],
+            dx = (pt2[0] - pt1[0])/(pt2[1] - pt1[1]),
+            x = pt1[0],
+            poly = [];
+            if(pt1[1] < pt2[1]) {
+                while(y <= pt2[1]){
+                    poly.push([x,y]);
+                    y++;
+                    x += dx;
+                }
+            } else {
+                while(y >= pt2[1]) {
+                    poly.push([x,y]);
+                    y--;
+                    x -= dx;
+                }
+            }
+            return poly;
+        }
+
+        function sortFunc(pt1,pt2) {
+            if(pt1[1] > pt2[1]) return 1;
+            if(pt1[1] < pt2[1]) return -1;
+            if(pt1[1] == pt2[1]) {
+                if(pt1[0] > pt2[0]) return 1;
+                if(pt1[0] < pt2[0]) return -1;
+                if(pt1[0] == pt2[0]) return 0;
+            }
+        }
+        
+        var rectListener = function(event) {
+            var mousePos = getMousePos(canvas);
+            buffer.push([mousePos.x,mousePos.y]);
+            console.log(buffer);
+            ctx.beginPath()
+            ctx.arc(mousePos.x, mousePos.y, 3, 0, Math.PI*2, true);
+            ctx.stroke();
+        }
+
+        var drawListener = function() {
+            console.log(buffer);
+            var tmpBuffer = [];
+            tmpBuffer = buffer;
+
+            ctx.clearRect(0,0,1000,1000);
+
+            for(var j = 0; j < tmpBuffer.length; j++) {
+                if(j == tmpBuffer.length - 1) {
+                    tmpBuffer = buffer;
+                    drawLine(tmpBuffer[j], tmpBuffer[0]);
+                } else {
+                    tmpBuffer = buffer; drawLine(tmpBuffer[j], tmpBuffer[j+1]);
+                    }
+            }
+            fillFigure();
+            buffer = [];
+        }
+
+        function rectFunction() {
+            ctx.clearRect(0,0,1000,1000);
+            canvas.addEventListener('click', rectListener, false);
+        }
+
+        function drawFunction() {
+            canvas.removeEventListener('click', rectListener, false);
+            if (buffer.length != 0) {
+                drawListener();
+            }
+        }
+    </script> 
+    </BODY> 
+</HTML>
