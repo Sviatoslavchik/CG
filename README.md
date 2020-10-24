@@ -24,3 +24,9 @@ Repository for laboratory works on computer graphics
   (Реализовать алгоритм отсечение отрезка выпуклым многоугольником.)
   
   <img src="https://github.com/Sviatoslavchik/CG/blob/master/images/lab%205.png"/>
+
+- [Laboratory work 6](https://github.com/Sviatoslavchik/CG/tree/master/lab_06):
+
+  (Реализовать алгоритм заполнения многоугольника цветом.)
+  
+  <img src="https://github.com/Sviatoslavchik/CG/blob/master/images/lab%206.png"/>
