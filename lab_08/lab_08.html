@@ -1,0 +1,87 @@
+<HTML>
+    <BODY>
+    <h1>Лабораторная работа №8</h1>
+    <p>Задание: реализовать поворот фигуры.</p>
+    <canvas id = 'lab08' width = '700' height = '500' style = "border:1px solid"> </canvas>
+    <p>Повернуть вправо на угол (угол задается в градусах):</p>
+    <input type="Angle" id="angle"/>
+    <input type="button" id="btn" value="Поворот">
+    <p>Положение оси вращения (центр: 350, 250):</p>
+    <input type="CenterPositionX" id="centerX"/>
+    <input type="CenterPositionY" id="centerY"/>
+    <input type="button" id="btnCenter" value="Применить">
+    <script>
+        var canvas = document.getElementById('lab08');
+        var ctx = canvas.getContext('2d');
+        window.onload = function() {
+        figure = [{
+                'x': 310,
+                'y': 170
+            }, {
+                'x': 350,
+                'y': 250
+            }, {
+                'x': 390,
+                'y': 170
+            }, {
+                'x': 350,
+                'y': 120
+            }
+            ];
+        center = {
+            'x': 350,
+            'y': 250
+        }
+        drawFigure();
+        drawCenter();
+    }
+    function drawFigure() {
+        ctx.fillStyle = "dodgerblue";
+        ctx.beginPath();
+        ctx.moveTo(figure[0].x,figure[0].y);
+        for(var i in figure){
+            ctx.lineTo(figure[i].x,figure[i].y);
+        }
+        ctx.closePath();
+        ctx.fill();
+    }
+    function drawCenter() {
+        ctx.beginPath();
+        ctx.fillStyle = "red";
+        ctx.arc(center.x,center.y,2,0,360);
+        ctx.fill();
+    }
+    
+    function turn(angle) {
+        angle = (angle * 3.14)/180;
+        ctx.clearRect( 0 , 0 , 1000 , 1000);
+        for (var i in figure)
+        {
+            temp = figure[i].x - center.x;
+            figure[i].x = parseInt( Math.round((figure[i].x-center.x) * Math.cos(angle)) - Math.round((figure[i].y - center.y)*Math.sin(angle))) + center.x;
+            figure[i].y = parseInt( Math.round(temp *Math.sin(angle)) + Math.round((figure[i].y - center.y)*Math.cos(angle)) ) + center.y;
+            console.log(figure[i].x, figure[i].y);
+        }
+        drawFigure();
+        drawCenter();
+    }
+    
+    function changeCenter(x, y) {
+        ctx.clearRect( 0 , 0 , 1000 , 1000);
+        center = {
+            'x':  parseInt(x),
+            'y':  parseInt(y)
+        }
+        drawFigure();
+        drawCenter();
+        console.log(center.x);
+        console.log(center.y);
+    }
+
+    var but = document.getElementById("btn");
+    but.addEventListener("click", function(event){turn(document.getElementById("angle").value)});
+    var butCenter = document.getElementById("btnCenter");
+    butCenter.addEventListener("click", function(event){changeCenter(document.getElementById("centerX").value, document.getElementById("centerY").value)});
+    </script>
+    </BODY>
+</HTML>
