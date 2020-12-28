@@ -30,3 +30,16 @@ Repository for laboratory works on computer graphics
   (Реализовать алгоритм заполнения многоугольника цветом.)
   
   <img src="https://github.com/Sviatoslavchik/CG/blob/master/images/lab%206.png"/>
+
+  - [Laboratory work 7](https://github.com/Sviatoslavchik/CG/tree/master/lab_07):
+
+  Реализовать рекурсивный алгоритм построения многоугольника и заполнение его цветом.
+  
+  <img src="https://github.com/Sviatoslavchik/CG/blob/master/images/lab%207.png"/>
+  
+- [Laboratory work 8](https://github.com/Sviatoslavchik/CG/tree/master/lab_08):
+
+  Реализовать поворот фигуры.
+  
+  <img src="https://github.com/Sviatoslavchik/CG/blob/master/images/lab%208.png"/>
+  
